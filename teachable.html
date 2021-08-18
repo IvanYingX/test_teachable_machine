@@ -10,7 +10,8 @@
 
     // the link to your model provided by Teachable Machine export panel
     const URL = "https://teachablemachine.withgoogle.com/models/_mfylBAGR/";
-
+    var snd = new Audio("https://aicoreassessments.s3.amazonaws.com/Duck-quack.mp3");
+    snd.loop = false
     let model, webcam, labelContainer, maxPredictions;
 
     // Load the image model and setup the webcam
@@ -55,5 +56,20 @@
                 prediction[i].className + ": " + prediction[i].probability.toFixed(2);
             labelContainer.childNodes[i].innerHTML = classPrediction;
         }
+        if (prediction[2].probability > 0.7){
+            beep();
+        }
+        else {
+            beep_stop();
+        }
+    }
+    
+    function beep() {
+        snd.play();
+    }
+    
+    function beep_stop() {
+        snd.pause();
+        snd.currentTime = 0;
     }
 </script>
